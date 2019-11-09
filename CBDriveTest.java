@@ -33,7 +33,6 @@ public class CBDriveTest extends LinearOpMode {
         initialization();
         waitForStart();
 
-
         util.moveForward();
         sleepInSecs(1);
         util.robot.drive.applyDriveMotorsBrake();
@@ -50,7 +49,6 @@ public class CBDriveTest extends LinearOpMode {
         util.robot.drive.stopDriveMotors();
         util.displayDriveEncoderValues();
         util.robot.drive.resetMotorEncoderValues();
-
 
         sleepInSecs(10);
 

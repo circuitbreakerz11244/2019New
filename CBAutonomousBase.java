@@ -1,10 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 public class CBAutonomousBase extends LinearOpMode {
 
     RoboUtil util = null;
+    VuforiaCB vcb = new VuforiaCB();
+    ColorSensor colorSensor;
 
     public void initialization() {
 
@@ -12,6 +15,10 @@ public class CBAutonomousBase extends LinearOpMode {
         util  = new RoboUtil("Manual", telemetry);
         util.robot.initializeDrive(hardwareMap,true);
         boolean bHWInitialized = util.robot.getRoboInitializationStatus();
+
+        vcb.initVuforia();
+        colorSensor = hardwareMap.colorSensor.get("color");
+
         if(util.robot.drive.getDriveInitializationStatus()) {
             util.addStatus("Initialized Circuit Breakerz. Ver " + strVersion);
             util.updateStatus(">>", " Press Start...");
@@ -26,9 +33,19 @@ public class CBAutonomousBase extends LinearOpMode {
     }
 
     public void encoderDrive(String strDirection, double distance, double maxPwr) {
+        encoderDrive(strDirection, distance, maxPwr, false, null);
+    }
 
-        //robot.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //robot.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+    public void encoderDrive(String strDirection, double distance, double maxPwr, boolean checkStone) {
+        encoderDrive(strDirection, distance, maxPwr, checkStone, null);
+    }
+
+    public void encoderDrive(String strDirection, double distance, double maxPwr, boolean checkStone, String inputColor) {
+
+        if(inputColor == null) {
+            inputColor = "";
+        }
+
         util.robot.drive.resetDriveMotorsEncoder();
         if(strDirection.equalsIgnoreCase("MF") || strDirection.equalsIgnoreCase("MB")) {
             distance = distance/2;
@@ -39,7 +56,7 @@ public class CBAutonomousBase extends LinearOpMode {
         double initPosLR = util.robot.drive.leftRear.getCurrentPosition();
         double initPosRR = util.robot.drive.rightRear.getCurrentPosition();
 
-        double targetPos    = distance * CBRoboConstants.COUNTS_PER_INCH;
+        double targetPos = distance * CBRoboConstants.COUNTS_PER_INCH;
 
         double currentRobotPos = 0.;
 
@@ -48,7 +65,11 @@ public class CBAutonomousBase extends LinearOpMode {
         // slopes for proportional speed increase/decrease
         double decSlope = (maxPwr - CBRoboConstants.DRIVE_MINIMUM_DRIVE_PWR) / (CBRoboConstants.DRIVE_DECELERATION_THRESHOLD);
 
-        while (Math.abs(currentRobotPos) < Math.abs(targetPos)){
+        while (Math.abs(currentRobotPos) < Math.abs(targetPos)) {
+
+            //if(util.bForceStop) {
+              //  break;
+            //}
 
             double curPosLF = util.robot.drive.leftFront.getCurrentPosition() - initPosLF;
             double curPosRF = util.robot.drive.rightFront.getCurrentPosition() - initPosRF;
@@ -73,6 +94,14 @@ public class CBAutonomousBase extends LinearOpMode {
                 util.moveRight(power);
             }
 
+            if (vcb.targetVisible() && checkStone) {
+                break;
+            }
+
+            //while(!colorSensor.red() && (inputColor.equalsIgnoreCase("red") || inputColor.equalsIgnoreCase("blue"))){
+               // break;
+            //}
+
 
             util.addStatus(">", " target position = " + targetPos);
             util.addStatus(">", " current robot pos = " + currentRobotPos);
@@ -80,8 +109,19 @@ public class CBAutonomousBase extends LinearOpMode {
             util.updateStatus(">", " power = " + power);
 
         }
-
         util.robot.drive.stopDriveMotors();
+    }
+
+    public void vuforiaNavigate(double y) {
+
+        vcb.getPose();
+//        while(!(vcb.getY() >  y - 0.4 && vcb.getY() < y + 0.4)) {
+//            vcb.getPose();
+//            double error = vcb.getY() - y;
+//            strafe(-Math.signum(error), 0.18, 0);
+//        }
+        double x = vcb.getX();
+        encoderDrive("MB", -x, 0.4, false,"" );
 
     }
 }
