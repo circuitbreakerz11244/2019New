@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class CBMainHardware {
 
     CBMecanumDrive drive = null;
-    CBIMU imu = null;
     CBRoboArmClaw roboArmClaw = null;
+    //CBIMU imu1 = null;
     //Include Vforia here
 
     boolean bRoboInitialized = false;
@@ -29,10 +29,11 @@ public class CBMainHardware {
     public boolean initializeRoboHW(HardwareMap hardwareMap, boolean bDriveEncodersOn) {
 
         drive = new CBMecanumDrive(hardwareMap, bDriveEncodersOn);
-        imu   = new CBIMU(hardwareMap);
+        //IMU NOT USED
+        //imu   = new CBIMU(hardwareMap);
         roboArmClaw = new CBRoboArmClaw(hardwareMap);
-        setRoboInitializationStatus(drive.getDriveInitializationStatus() && imu.isCalibrated() && roboArmClaw.getArmInitializationStatus());
-
+        //setRoboInitializationStatus(drive.getDriveInitializationStatus() && imu.isCalibrated() && roboArmClaw.getArmInitializationStatus());
+        setRoboInitializationStatus(drive.getDriveInitializationStatus() && roboArmClaw.getArmInitializationStatus());
         return bRoboInitialized;
     }
 
@@ -57,6 +58,11 @@ public class CBMainHardware {
     public boolean initializeArmClaw(HardwareMap hardwareMap, boolean bArmEncoderOn, boolean bClawEncoderOn) {
         roboArmClaw = new CBRoboArmClaw(hardwareMap, bArmEncoderOn, bClawEncoderOn);
         return roboArmClaw.getArmInitializationStatus();
+    }
+
+    public boolean initializeServosForAuto(HardwareMap hardwareMap) {
+        roboArmClaw = new CBRoboArmClaw();
+        return roboArmClaw.initializeServosForAuto(hardwareMap);
     }
 
     public boolean getRoboInitializationStatus() {
