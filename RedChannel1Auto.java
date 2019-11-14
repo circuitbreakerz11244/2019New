@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous(name = "RED AUTO CHNL_1", group = "autonomous")
+@Disabled
 public class RedChannel1Auto extends CBAutonomousBase {
 
     String inputColor = "red";
@@ -22,7 +24,7 @@ public class RedChannel1Auto extends CBAutonomousBase {
 
         sleep(1000);
 
-        if (vcb.targetVisible()) {
+        if (vcb.isTargetVisible()) {
             vuforiaNavigate(0.0);
         }
         sleep(2000);
