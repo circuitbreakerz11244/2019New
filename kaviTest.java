@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 // RObot is using the arm located at its back to pick up the skystones
 @Autonomous(name = "kavi color Test v8", group = "autonomous")
-@Disabled
 public class kaviTest extends LinearOpMode {
 
     String inputColor = "blue";

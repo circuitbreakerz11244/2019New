@@ -30,7 +30,7 @@ public class CBTeleOp extends OpMode {
         //util.robot.roboArmClaw.stopClawMotor();
         //util.robot.roboArmClaw.resetClawMotorEncoder();
 
-        util.robot.roboArmClaw.capstoneServoClose();
+        util.robot.roboArmClaw.capstoneServoOpen();
 
     }
 

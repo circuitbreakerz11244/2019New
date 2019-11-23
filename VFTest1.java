@@ -28,23 +28,28 @@ public class VFTest1 extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
 
-        vcb.initVuforia();
-
+        vcb.initVuforia(telemetry);
+        telemetry.addData("Status","Initialized Circuit Breakerz. Ver " + CBRoboConstants.CB_CODE_VERSION);
+        telemetry.addData(">>", " Press Start...");
+        telemetry.update();
+        vcb.startTracking();
 
         waitForStart();
 
-        vcb.startTracking();
+
         CameraDevice.getInstance().setFlashTorchMode(true);
         while (opModeIsActive()) {
             boolean targetFound = vcb.getPose(1000);
             if(targetFound) {
                 telemetry.addData("Data2", " x = " + vcb.x + " y = " + vcb.y + " robotAngle = " + vcb.robotAngle);
+                telemetry.update();
                 sleep(10000);            }
             idle();
         }
         CameraDevice.getInstance().setFlashTorchMode(false);
         telemetry.addData("Data3", " x = " + vcb.x + " y = " + vcb.y + " robotAngle = " + vcb.robotAngle);
-    sleep(10000);
+        telemetry.update();
+        sleep(10000);
     }
 
 }

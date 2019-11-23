@@ -224,7 +224,7 @@ public class CBAutonomousBase extends LinearOpMode {
     //}
 
     public void moveToNextStone(String strDirection) {
-        encoderDrive("MR", CBRoboConstants.SKYSTONE_LENGTH, 0.3, 0.4);
+        encoderDrive(strDirection, CBRoboConstants.SKYSTONE_LENGTH, 0.16, 0.3);
     }
 
     public long getCurrTimeElapsed() {
@@ -240,6 +240,37 @@ public class CBAutonomousBase extends LinearOpMode {
         } else {
             return false;
         }
+    }
+
+    public void redChannelFoundationPick() {
+
+        initialization();
+        waitForStart();
+        encoderDrive("MR", 11, 0.4);
+        encoderDrive("MF", 34, 0.5);
+        //pull foundation
+        util.robot.roboArmClaw.pullServoClose();
+
+        sleep(200);
+        encoderDrive("MB", 34, 0.5);
+        util.robot.roboArmClaw.pullServoOpen();
+        sleep(200);
+
+    }
+
+    public void blueChannelFoundationPick() {
+
+        initialization();
+        waitForStart();
+        encoderDrive("ML", 11, 0.4);
+        encoderDrive("MF", 34, 0.5);
+        //pull foundation
+        util.robot.roboArmClaw.pullServoClose();
+        sleep(200);
+
+        encoderDrive("MB", 34, 0.5);
+        util.robot.roboArmClaw.pullServoOpen();
+        sleep(200);
     }
 
 }

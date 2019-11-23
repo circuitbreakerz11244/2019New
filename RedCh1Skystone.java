@@ -26,8 +26,8 @@ public class RedCh1Skystone extends CBRedChannelSkyStone {
         searchSkyStone();
         flashTorchOff();
         //Time to search skystone END
-
-        encoderDrive("MF", totalMBDistance-5
+//TBD Fine tune MB Distance
+        encoderDrive("MF", totalMBDistance-2
                 , CBRoboConstants.SKYSTONE_DRIVE_MIN_PWR
                 , CBRoboConstants.SKYSTONE_DRIVE_MAX_PWR);
 
