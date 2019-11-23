@@ -2,14 +2,25 @@ package org.firstinspires.ftc.teamcode;
 
 public interface CBRoboConstants {
 
-    final String CB_CODE_VERSION = "Nov 14 1.1";
+    final String CB_CODE_VERSION = "Nov 22 1.1";
 
     final double DRIVE_MOTOR_MOVE_POWER   = 0.71;
     final double DRIVE_MOTOR_ROTATE_POWER = 1.00;
+    final long SKYSTONE_SEARCH_TIME_MS = 200;
+
+    final double SKYSTONE_LENGTH = 8.0;
+
+    final double PHONE_PULLSERVO_DIST = 7;
+
+    final double SKYSTONE_INIT_DRIVE_DIST = 24.0;
+    final double SKYSTONE_DRIVE_MIN_PWR  = 0.5;
+    final double SKYSTONE_DRIVE_MAX_PWR  = 0.8;
+
 
     //drive function constants
     final double DRIVE_MINIMUM_DRIVE_PWR = 0.16;
-    final double DRIVE_DECELERATION_THRESHOLD = 6.25;
+    //final double DRIVE_DECELERATION_THRESHOLD = 6.25;
+    final double DRIVE_DECELERATION_THRESHOLD = 40;
 
     final double ARM_MOTOR_MOVE_POWER   = 0.71;
     final double ARM_MOTOR_ROTATE_POWER = 1.00;
@@ -20,14 +31,14 @@ public interface CBRoboConstants {
     final double CLAW_SERVO_OPEN  = 0.0;
     final double CLAW_SERVO_CLOSE = 1.0;
 
-    final double PULL_SERVO_OPEN  = 1.0;
-    final double PULL_SERVO_CLOSE = 0.5; //0.3
+    final double PULL_SERVO_OPEN  = 0.5;
+    final double PULL_SERVO_CLOSE = 1.0; //0.3
 
     final double SKYSTONE_SERVO_OPEN = 0.95;
     final double SKYSTONE_SERVO_CLOSE = 0.35;
 
-    final double CAPSTONE_SERVO_OPEN = 0.9;
-    final double CAPSTONE_SERVO_CLOSE = 0.1;
+    final double CAPSTONE_SERVO_OPEN = 0.7;
+    final double CAPSTONE_SERVO_CLOSE = 0.0;
 
     final double SERVO_INITIAL = 0.0; //move to   0 degree
     final double SERVO_MIDDLE  = 0.5; //move to  90 degrees

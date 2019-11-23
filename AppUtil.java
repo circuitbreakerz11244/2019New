@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.util.Range;
+
 import java.text.DecimalFormat;
 import java.lang.reflect.Field;
 
@@ -81,6 +83,49 @@ public class AppUtil {
 
         double dd = Math.asin(0.5);
         //System.out.println("dd = " + dd);
+
+        double leftY2 = -0.5;
+                leftY2 = Range.clip(leftY2, -0.1, 0.1);
+                System.out.println(leftY2);
+
+        double globalRobotPos = 377.11;
+        double moveSideDistance = 0;
+        double returnSideDistance = 0;
+        String stoneNbr = "";
+        if(globalRobotPos < 200) {
+            //1.
+            moveSideDistance = 5;
+            returnSideDistance = 40;
+            stoneNbr = "1";
+        } else if(globalRobotPos > 200 && globalRobotPos < 300) {
+            //2.
+            moveSideDistance = 10;
+            returnSideDistance = 48;
+            stoneNbr = "2";
+        } else if(globalRobotPos > 300 && globalRobotPos < 400) {
+            //3.
+            moveSideDistance = 11.5;
+            returnSideDistance = 56;
+            stoneNbr = "3";
+        } else if(globalRobotPos > 400 && globalRobotPos < 550) {
+            //4.
+            moveSideDistance = 10.5;
+            returnSideDistance = 64;
+            stoneNbr = "4";
+        } else if(globalRobotPos > 550 && globalRobotPos < 650) {
+            //5
+            moveSideDistance = 10.5;
+            returnSideDistance = 72;
+            stoneNbr = "5";
+        } else {
+            //6
+            moveSideDistance = 0;
+            returnSideDistance = 72;
+            stoneNbr = "6";
+        }
+
+        System.out.println("Robot Pos>>  RP " + globalRobotPos + " S>>" + stoneNbr + " MSD " + moveSideDistance + " RSD " + returnSideDistance);
+
 
     }
 }

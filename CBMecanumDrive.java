@@ -99,6 +99,7 @@ public class CBMecanumDrive {
         for(DcMotor motor : driveMotorList) {
             motor.setMode(RunMode.RUN_USING_ENCODER);
         }
+        resetMotorEncoderValues();
     }
 
     public boolean getDriveInitializationStatus() {
@@ -125,6 +126,22 @@ public class CBMecanumDrive {
         return iPreviousDeltaArray;
     }
 
+    public int getCurrentRobotPos() {
+
+        int encDeltaValues[] = getDriveEncoderDeltaValues();
+        int curPosLF = encDeltaValues[0];
+        int curPosRF = encDeltaValues[1];
+        int curPosLR = encDeltaValues[2];
+        int curPosRR = encDeltaValues[3];
+
+        curPosLF = Math.abs(curPosLF);
+        curPosRF = Math.abs(curPosRF);
+        curPosLR = Math.abs(curPosLR);
+        curPosRR = Math.abs(curPosRR);
+
+        return (curPosLF + curPosRF + curPosLR + curPosRR) / 4;
+    }
+
     public int[] getDriveEncoderDeltaValues() {
         int[] iEncDeltaArray = {
                   leftFront.getCurrentPosition() - leftFrontPreviousPosition
@@ -136,7 +153,11 @@ public class CBMecanumDrive {
     }
 
     public void resetMotorEncoderValues() {
-        setMotorEncoderValues();
+        leftFrontPreviousPosition  = 0;
+        rightFrontPreviousPosition = 0;
+        leftRearPreviousPosition   = 0;
+        rightRearPreviousPosition  = 0;
+
     }
 
     public void setMotorEncoderValues() {

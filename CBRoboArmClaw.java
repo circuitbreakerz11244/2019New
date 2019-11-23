@@ -66,12 +66,12 @@ public class CBRoboArmClaw  {
         }
 
         //Set the encoders based on parameter passed
-        encodeArmMotor(bArmEncoderOn);
-        encodeClawMotor(bClawEncoderOn);
+        //encodeArmMotor(bArmEncoderOn);
+        //encodeClawMotor(bClawEncoderOn);
 
         //Start with Zero Power Behaviour
-        applyArmMotorBrake();
-        applyClawMotorBrake();
+        //applyArmMotorBrake();
+        //applyClawMotorBrake();
 
         return bArmInitialized;
     }

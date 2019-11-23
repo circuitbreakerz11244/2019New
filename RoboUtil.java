@@ -62,7 +62,7 @@ public class RoboUtil {
     }
 
     public void moveForward(double pDblPower) {
-        addStatus("moveForward with power " + pDblPower);
+        //addStatus("moveForward with power " + pDblPower);
         setPower(CBRoboConstants.moveForward, pDblPower);
     }
 
@@ -71,7 +71,7 @@ public class RoboUtil {
     }
 
     public void moveBackward(double pDblPower) {
-        addStatus("moveBackward with power " + pDblPower);
+        //addStatus("moveBackward with power " + pDblPower);
         setPower(CBRoboConstants.moveBackward, pDblPower);
     }
 
@@ -80,7 +80,7 @@ public class RoboUtil {
     }
 
     public void moveRight(double pDblPower) {
-        addStatus("moveRight with power " + pDblPower);
+        //addStatus("moveRight with power " + pDblPower);
         setPower(CBRoboConstants.moveRight, pDblPower);
     }
 
@@ -89,7 +89,7 @@ public class RoboUtil {
     }
 
     public void moveLeft(double pDblPower) {
-        addStatus("moveLeft with power " + pDblPower);
+        //addStatus("moveLeft with power " + pDblPower);
         setPower(CBRoboConstants.moveLeft, pDblPower);
     }
 
@@ -227,7 +227,7 @@ public class RoboUtil {
     }
 
     public void pullServoClose(double pDouble) {
-        robot.roboArmClaw.skystoneServoClose(pDouble);
+        robot.roboArmClaw.pullServoClose(pDouble);
     }
 
     public void skystoneServoOpen() {
@@ -243,7 +243,7 @@ public class RoboUtil {
     }
 
     public void skystoneServoClose(double pDouble) {
-        robot.roboArmClaw.clawClose(pDouble);
+        robot.roboArmClaw.skystoneServoClose(pDouble);
     }
 
     public int getMotorEncoderValue(DcMotor motor) {
@@ -259,20 +259,21 @@ public class RoboUtil {
         strBuff.append(" c2=").append(encCurrentValues[1]);
         strBuff.append(" c3=").append(encCurrentValues[2]);
         strBuff.append(" c4=").append(encCurrentValues[3]);
-        updateStatus("EncValues", strBuff.toString());
+        updateStatus("CurrEncValues", strBuff.toString());
     }
 
     public void displayDriveEncoderValues() {
 
         int encPreviousValues[] = robot.drive.getDrivePreviousEncoderValues();
-        int encDeltaValues[] = robot.drive.getDriveEncoderDeltaValues();
+        int encCurrValues[]     = robot.drive.getDriveCurrentEncoderValues();
+        int encDeltaValues[]    = robot.drive.getDriveEncoderDeltaValues();
 
         StringBuffer strBuff = new StringBuffer();
-        strBuff.append(" p1=").append(encPreviousValues[0]).append(" d1=").append(encDeltaValues[0]);
-        strBuff.append(" p2=").append(encPreviousValues[1]).append(" d2=").append(encDeltaValues[1]);
-        strBuff.append(" p3=").append(encPreviousValues[2]).append(" d3=").append(encDeltaValues[2]);
-        strBuff.append(" p4=").append(encPreviousValues[3]).append(" d4=").append(encDeltaValues[3]);
-        updateStatus("EncValues", strBuff.toString());
+        strBuff.append(" p1=").append(encPreviousValues[0]).append(" c1=").append(encCurrValues[0]).append(" d1=").append(encDeltaValues[0]);
+        strBuff.append(" p2=").append(encPreviousValues[1]).append(" c2=").append(encCurrValues[1]).append(" d2=").append(encDeltaValues[1]);
+        strBuff.append(" p3=").append(encPreviousValues[2]).append(" c2=").append(encCurrValues[2]).append(" d3=").append(encDeltaValues[2]);
+        strBuff.append(" p4=").append(encPreviousValues[3]).append(" c3=").append(encCurrValues[3]).append(" d4=").append(encDeltaValues[3]);
+        updateStatus("AllEncValues >>", strBuff.toString());
     }
 
     public void addStatus(String strMsg) {
@@ -288,6 +289,9 @@ public class RoboUtil {
     }
 
     public void updateStatus(String strMsgKey, String strMsg) {
+		if(!strMsg.contains(".")) {
+			strMsg = i + "." + strMsg;
+		}		
         telemetry.addData(strMsgKey, strMsg);
         telemetry.update();
         i++;

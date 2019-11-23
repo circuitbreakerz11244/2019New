@@ -10,15 +10,13 @@ public class CBDriveTest extends LinearOpMode {
 
     public void initialization() {
 
-        String strVersion = "Nov 08 v1.2";
         util  = new RoboUtil("Manual", telemetry);
         util.robot.initializeDrive(hardwareMap,true);
-        boolean bHWInitialized = util.robot.getRoboInitializationStatus();
         if(util.robot.drive.getDriveInitializationStatus()) {
-            util.addStatus("Initialized Circuit Breakerz. Ver " + strVersion);
+            util.addStatus("Initialized Circuit Breakerz. Ver " + CBRoboConstants.CB_CODE_VERSION);
             util.updateStatus(">>", " Press Start...");
         } else {
-            util.updateStatus(">>", "Not All Hardware are Initialized. Ver " + strVersion);
+            util.updateStatus(">>", "Not All Hardware are Initialized. Ver " + CBRoboConstants.CB_CODE_VERSION);
         }
         util.robot.drive.resetDriveMotorsEncoder();
     }
@@ -32,41 +30,44 @@ public class CBDriveTest extends LinearOpMode {
 
         initialization();
         waitForStart();
+		util.robot.drive.resetMotorEncoderValues();
 
-        util.moveForward();
-        sleepInSecs(1);
-        util.robot.drive.applyDriveMotorsBrake();
-        util.robot.drive.stopDriveMotors();
-        util.displayDriveEncoderValues();
-        util.robot.drive.resetMotorEncoderValues();
-
-        sleepInSecs(10);
-
-
+        //util.moveForward();
         util.moveLeft();
         sleepInSecs(1);
         util.robot.drive.applyDriveMotorsBrake();
         util.robot.drive.stopDriveMotors();
         util.displayDriveEncoderValues();
-        util.robot.drive.resetMotorEncoderValues();
 
         sleepInSecs(10);
 
+        /*
+        util.robot.drive.resetMotorEncoderValues();
+        util.moveLeft();
+        sleepInSecs(1);
+        util.robot.drive.applyDriveMotorsBrake();
+        util.robot.drive.stopDriveMotors();
+        util.displayDriveEncoderValues();
+
+        sleepInSecs(10);
+
+        util.robot.drive.resetMotorEncoderValues();
         util.moveRight();
         sleepInSecs(1);
         util.robot.drive.applyDriveMotorsBrake();
         util.robot.drive.stopDriveMotors();
         util.displayDriveEncoderValues();
-        util.robot.drive.resetMotorEncoderValues();
 
         sleepInSecs(10);
 
+        util.robot.drive.resetMotorEncoderValues();
         util.moveBackward();
         sleepInSecs(1);
         util.robot.drive.applyDriveMotorsBrake();
         util.robot.drive.stopDriveMotors();
         util.displayDriveEncoderValues();
-        util.robot.drive.resetMotorEncoderValues();
-
+		
+		sleepInSecs(10);
+*/
     }
 }

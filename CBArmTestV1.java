@@ -14,11 +14,14 @@ public class CBArmTestV1 extends OpMode {
 
     public void initialization() {
 
-        String strVersion = "Nov 09 v1.8";
+        String strVersion = "Nov 10 v1.2";
         util  = new RoboUtil("Manual", telemetry);
-        util.robot.initializeArmClaw(hardwareMap,true);
-        boolean bHWInitialized = util.robot.getRoboInitializationStatus();
-        if(util.robot.roboArmClaw.getArmInitializationStatus()) {
+        util.robot.initializeArmClaw(hardwareMap,false);
+
+        boolean IsDriveReady = util.robot.initializeDrive(hardwareMap, false);
+        boolean IsArmReady = util.robot.initializeArmClaw(hardwareMap,false);
+
+        if(IsDriveReady && IsArmReady) {
             util.addStatus("Initialized Circuit Breakerz. Ver " + strVersion);
             util.updateStatus(">>", " Press Start...");
         } else {
@@ -38,6 +41,7 @@ public class CBArmTestV1 extends OpMode {
     @Override
     public void loop() {
 
+       /*
         double leftY = -gamepad2.left_stick_y;
         util.updateStatus("Stick>>"+leftY);
         util.robot.roboArmClaw.armMotor.setPower(leftY);
@@ -69,6 +73,9 @@ public class CBArmTestV1 extends OpMode {
         if(gamepad2.dpad_down) {
             util.robot.roboArmClaw.clawClose();
         }
+        /*
+
+         */
 
 /*
         if (util.robot.roboArmClaw.arm.getCurrentPosition() <= CBRoboConstants.ARM_MAX_EXTENSION &&
@@ -96,6 +103,51 @@ public class CBArmTestV1 extends OpMode {
         telemetry.addData(">", "right motor position: " + rightRear.getCurrentPosition());
         telemetry.addData(">", "left motor position: " + leftRear.getCurrentPosition());
     */
+
+        //Drive Code START
+        double leftX  = gamepad1.left_stick_x;
+        double leftY  = -gamepad1.left_stick_y;    //Gamepad Moving up is giving -ve value.So fix it by reversing it
+        double rightX = gamepad1.right_stick_x;
+
+        //Get the desired power settings based on given x, y and z (z is rotation --> rightX used for rotation)
+        //Call the reusable method to get PowerVector
+        double[] powerVectorArray = AppUtil.getVectorArrays(leftX, leftY, rightX);
+        double v1 = powerVectorArray[0];
+        double v2 = powerVectorArray[1];
+        double v3 = powerVectorArray[2];
+        double v4 = powerVectorArray[3];
+
+        //It is necessary to set one side of motor to REVERSE
+        //Motor is facing other directions so reverse it.-- Kadhir
+        v1 = -v1;
+        v3 = -v3;
+
+        //Display the values in the Driver Station for Tank Drive
+        util.addStatus(" G1.Motor.x " + leftX + " y " + leftY + " z " + rightX);
+        //set the power for the Mecanum wheel drive
+        util.setPower(v1, v2, v3, v4);
+
+        //Drive Code END
+
+        //ARM Code START
+        //ARM Move Up or Down Functionality
+        double leftY2 = -gamepad2.left_stick_y;
+        util.updateStatus(" G2.ArmMotor.Y>>" + leftY2);
+        Range.clip(leftY2, -1, 1);
+        util.robot.roboArmClaw.armMotor.setPower(leftY2);
+
+        //Use DPAD Up/Down for Open/Close Claw
+        if(gamepad2.dpad_up) {
+            util.robot.roboArmClaw.clawOpen();
+        } else if(gamepad2.dpad_down) {
+            util.robot.roboArmClaw.clawClose();
+        }
+
+        //Claw Up/Down Motor Moving up and Down
+        double leftX2 = -gamepad2.left_stick_x;
+        util.updateStatus(" G2.ClawMotor.X>>" + leftY2);
+        leftY2 = Range.clip(leftY2, -0., 0.1);
+        util.robot.roboArmClaw.clawMotor.setPower(leftY2);
 
     }
 

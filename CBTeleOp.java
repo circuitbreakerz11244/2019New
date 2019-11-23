@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "CB TeleOp", group = "teleop")
@@ -14,7 +15,7 @@ public class CBTeleOp extends OpMode {
         util  = new RoboUtil("Manual", telemetry);
 
         boolean IsDriveReady = util.robot.initializeDrive(hardwareMap, false);
-        boolean IsArmReady = util.robot.initializeArmClaw(hardwareMap,true,true);
+        boolean IsArmReady = util.robot.initializeArmClaw(hardwareMap,false,false);
 
         if(IsDriveReady && IsArmReady) {
             util.addStatus("Initialized Circuit Breakerz. Ver " + CBRoboConstants.CB_CODE_VERSION);
@@ -23,11 +24,13 @@ public class CBTeleOp extends OpMode {
             util.updateStatus(">>", "Not All Hardware are Initialized. Ver " + CBRoboConstants.CB_CODE_VERSION);
         }
 
-        util.robot.roboArmClaw.stopArmMotor();
-        util.robot.roboArmClaw.resetArmMotorEncoder();
+        //util.robot.roboArmClaw.stopArmMotor();
+        //util.robot.roboArmClaw.resetArmMotorEncoder();
 
-        util.robot.roboArmClaw.stopClawMotor();
-        util.robot.roboArmClaw.resetClawMotorEncoder();
+        //util.robot.roboArmClaw.stopClawMotor();
+        //util.robot.roboArmClaw.resetClawMotorEncoder();
+
+        util.robot.roboArmClaw.capstoneServoClose();
 
     }
 
@@ -66,19 +69,25 @@ public class CBTeleOp extends OpMode {
 
         //ARM Code START
         //ARM Move Up or Down Functionality
-        double leftY2 = -gamepad2.left_stick_y;
-        leftY2 = Range.clip(leftY2, -0.8, 0.8);
-        double armMotorPosition = util.robot.roboArmClaw.armMotor.getCurrentPosition();
-        armMotorPosition = -armMotorPosition;
-        if(armMotorPosition < 0 || armMotorPosition > 13700 ) {
+        double leftY2 = gamepad2.left_stick_y;
+        util.robot.roboArmClaw.armMotor.setPower(leftY2);
+        util.updateStatus("leftY2 >>",""+leftY2);
+        leftY2 = Range.clip(leftY2, -0.1, 0.1);
+        double armMotorPosition = 0;
+        armMotorPosition = util.robot.roboArmClaw.armMotor.getCurrentPosition();
+        armMotorPosition = Math.abs(armMotorPosition);
+
+        if((armMotorPosition < 0 && leftY2 < 0)|| (armMotorPosition > 13700 && leftY2 > 0) ) {
             util.robot.roboArmClaw.armMotor.setPower(0);
         } else {
-            util.robot.roboArmClaw.armMotor.setPower(leftY2);
+           util.robot.roboArmClaw.armMotor.setPower(leftY2);
         }
+
+        //util.robot.roboArmClaw.armMotor.setPower(leftY2);
 
         //IF ARM LOCKED for Out of range.Then use x to release
         if(gamepad2.x) {
-            util.robot.roboArmClaw.armMotor.setPower(leftY2);
+           util.robot.roboArmClaw.armMotor.setPower(leftY2);
         }
 
         //Use DPAD Up/Down for Open/Close Claw
@@ -94,11 +103,18 @@ public class CBTeleOp extends OpMode {
             util.robot.roboArmClaw.pullServoClose();
         }
 
-        if(gamepad2.a) {
+        if(gamepad2.left_bumper) {
+            util.robot.roboArmClaw.skystoneServoOpen();
+        } else if(gamepad2.right_bumper) {
+            util.robot.roboArmClaw.skystoneServoClose();
+        }
+
+        if(gamepad2.x) {
             util.robot.roboArmClaw.capstoneServoOpen();
-        } else if(gamepad2.b) {
+        } else if(gamepad2.y) {
             util.robot.roboArmClaw.capstoneServoClose();
         }
+
 
         //Claw Up/Down Motor Moving up and Down
         double rightY2 = -gamepad2.right_stick_y;
