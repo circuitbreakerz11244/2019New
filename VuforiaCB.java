@@ -41,7 +41,8 @@ public class VuforiaCB {
     private final float MM_PER_INCH = 25.4f;
 
     // Constant for Stone Target
-    private final float stoneZ = 2.00f * MM_PER_INCH;
+    //private final float stoneZ = 2.00f * MM_PER_INCH;
+    private final float stoneZ = 0;
 
     // Variables to be used for later
     private VuforiaLocalizer vuforia;

@@ -43,13 +43,13 @@ public class VFTest1 extends LinearOpMode {
             if(targetFound) {
                 telemetry.addData("Data2", " x = " + vcb.x + " y = " + vcb.y + " robotAngle = " + vcb.robotAngle);
                 telemetry.update();
-                sleep(10000);            }
+                sleep(4000);            }
             idle();
         }
         CameraDevice.getInstance().setFlashTorchMode(false);
         telemetry.addData("Data3", " x = " + vcb.x + " y = " + vcb.y + " robotAngle = " + vcb.robotAngle);
         telemetry.update();
-        sleep(10000);
+        sleep(4000);
     }
 
 }

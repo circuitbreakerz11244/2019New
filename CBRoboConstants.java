@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 public interface CBRoboConstants {
 
-    final String CB_CODE_VERSION = "Nov 23 1.11";
+    final String CB_CODE_VERSION = "Nov 23 1.13";
 
     final double DRIVE_MOTOR_MOVE_POWER   = 0.71;
     final double DRIVE_MOTOR_ROTATE_POWER = 1.00;
