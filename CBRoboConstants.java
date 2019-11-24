@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 public interface CBRoboConstants {
 
-    final String CB_CODE_VERSION = "Nov 23 1.13";
+    final String CB_CODE_VERSION = "Nov 23 C2.1";
 
     final double DRIVE_MOTOR_MOVE_POWER   = 0.71;
     final double DRIVE_MOTOR_ROTATE_POWER = 1.00;
-    final long SKYSTONE_SEARCH_TIME_MS = 200;
+    final long SKYSTONE_SEARCH_TIME_MS = 1000;
 
     final double SKYSTONE_LENGTH = 8.0;
 
@@ -17,15 +17,15 @@ public interface CBRoboConstants {
     final double SKYSTONE_DRIVE_MAX_PWR  = 0.7;
 
     final double SKYSTONE_AP_CH2_DRIVE_DIST = 15.0;
-    final double SKYSTONE_AFTERPICK_MIN_PWR  = 0.2;
-    final double SKYSTONE_AFTERPICK_MAX_PWR  = 0.5;
+    final double SKYSTONE_AFTERPICK_MIN_PWR  = 0.3;
+    final double SKYSTONE_AFTERPICK_MAX_PWR  = 0.7;
 
-    final double SKYSTONE_AP_SD_MIN_PWR  = 0.16;
-    final double SKYSTONE_AP_SD_MAX_PWR  = 0.4;
+    final double SKYSTONE_AP_SD_MIN_PWR  = 0.3;
+    final double SKYSTONE_AP_SD_MAX_PWR  = 0.6;
 
     final double FOUNDATION_CHNL_1_RET_DIST  = 51;
 
-    //drive function constants
+    //drive function  constants
     final double DRIVE_MINIMUM_DRIVE_PWR = 0.16;
     //final double DRIVE_DECELERATION_THRESHOLD = 6.25;
     final double DRIVE_DECELERATION_THRESHOLD = 40;

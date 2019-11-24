@@ -30,7 +30,7 @@ public class CBBlueChannelSkyStone extends CBAutonomousBase {
             util.updateStatus("Skystone X Y"," x=" + vcb.getX() + " y=" + vcb.getY());
 
             double moveSideDistance = CBRoboConstants.PHONE_PULLSERVO_DIST;
-            if (vcb.getY() < 0) {
+            if (vcb.getY() <= 0) {
                 moveSideDistance = moveSideDistance + Math.abs(vcb.getY());
             } else if (vcb.getY() > 0) {
                 moveSideDistance = moveSideDistance - Math.abs(vcb.getY());

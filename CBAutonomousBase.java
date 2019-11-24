@@ -37,6 +37,7 @@ public class CBAutonomousBase extends LinearOpMode {
         util.robot.drive.resetDriveMotorsEncoder();
         util.skystoneServoOpen();
         util.robot.roboArmClaw.pullServoOpen();
+        util.robot.roboArmClaw.capstoneServoOpen();
 
         vcb.startTracking();
 

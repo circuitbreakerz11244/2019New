@@ -10,10 +10,12 @@ public class RedCh2Foundation extends CBAutonomousBase {
 
     @Override
     public void runOpMode() {
+
         redChannelFoundationPick();
         encoderDrive("ML", 34, 0.5);
-        encoderDrive("MF", 21, 0.3);
-        encoderDrive("ML", 18, 0.2, inputColor);
+        encoderDrive("MF", 21, 0.5);
+        encoderDrive("MR", 10, 0.3);//PUSHING FOUNDATION
+        encoderDrive("ML", 18+10, 0.2, inputColor);
 
     }
 }

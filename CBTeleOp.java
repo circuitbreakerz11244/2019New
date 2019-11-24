@@ -47,6 +47,8 @@ public class CBTeleOp extends OpMode {
         double leftY  = -gamepad1.left_stick_y;    //Gamepad Moving up is giving -ve value.So fix it by reversing it
         double rightX = gamepad1.right_stick_x;
 
+        rightX = rightX * rightX * rightX;
+
         //Get the desired power settings based on given x, y and z (z is rotation --> rightX used for rotation)
         //Call the reusable method to get PowerVector
         double[] powerVectorArray = AppUtil.getVectorArrays(leftX, leftY, rightX);
