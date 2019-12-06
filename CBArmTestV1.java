@@ -30,7 +30,7 @@ public class CBArmTestV1 extends OpMode {
         util.robot.roboArmClaw.stopArmMotor();
         util.robot.roboArmClaw.resetArmMotorEncoder();
 
-        util.robot.roboArmClaw.stopClawMotor();
+        //util.robot.roboArmClaw.stopClawMotor();
     }
 
     @Override
@@ -147,7 +147,7 @@ public class CBArmTestV1 extends OpMode {
         double leftX2 = -gamepad2.left_stick_x;
         util.updateStatus(" G2.ClawMotor.X>>" + leftY2);
         leftY2 = Range.clip(leftY2, -0., 0.1);
-        util.robot.roboArmClaw.clawMotor.setPower(leftY2);
+        //util.robot.roboArmClaw.clawMotor.setPower(leftY2);
 
     }
 

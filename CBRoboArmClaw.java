@@ -8,11 +8,12 @@ public class CBRoboArmClaw  {
 
     //Arm Motor
     public DcMotor armMotor;
-    public DcMotor clawMotor;
+    //public DcMotor clawMotor;
 
     //Servo Range 0 to 1. [ 0 to 180 Degree ] (0 degree --> 0, 90 Degree --> 0.5, 180 Degree --> 1.0)
     //Servo for Claw
     public Servo claw;
+    public Servo clawupdown;
 
     //Servo for pull foundation
     public Servo pullServo;
@@ -52,16 +53,18 @@ public class CBRoboArmClaw  {
 
         //Arm Motors
         armMotor  = hardwareMap.get(DcMotor.class,  "armMotor"  );
-        clawMotor = hardwareMap.get(DcMotor.class,  "clawMotor"  );
+        //clawMotor = hardwareMap.get(DcMotor.class,  "clawMotor"  );
 
         //Servos
         claw = hardwareMap.servo.get("claw");
+        clawupdown = hardwareMap.servo.get("clawupdown");
         pullServo = hardwareMap.servo.get("pullServo");
         skystoneServo = hardwareMap.servo.get("skystoneServo");
         capstoneServo = hardwareMap.servo.get("capstoneServo");
 
         //Make sure all Hardware are initialized
-        if(armMotor != null && clawMotor != null && claw != null && pullServo != null && skystoneServo != null && capstoneServo != null) {
+        //if(armMotor != null && clawMotor != null && claw != null && pullServo != null && skystoneServo != null && capstoneServo != null) {
+        if(armMotor != null && clawupdown != null && claw != null && pullServo != null && skystoneServo != null && capstoneServo != null) {
             bArmInitialized = true;
         }
 
@@ -95,6 +98,7 @@ public class CBRoboArmClaw  {
         }
     }
 
+    /*
     public void encodeClawMotor(boolean bEncodersOn) {
         if (bEncodersOn) {
             clawMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -102,32 +106,39 @@ public class CBRoboArmClaw  {
             clawMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
+    */
 
     public void applyArmMotorBrake() {
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    /*
     public void applyClawMotorBrake() {
         clawMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+    */
 
     public void stopArmMotor() {
         armMotor.setPower(0);
     }
 
+    /*
     public void stopClawMotor() {
         clawMotor.setPower(0);
     }
+    */
 
     public void resetArmMotorEncoder() {
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
+    /*
     public void resetClawMotorEncoder() {
         clawMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         clawMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+    */
 
     public void clawOpen() {
         claw.setPosition(CBRoboConstants.CLAW_SERVO_OPEN);
@@ -192,6 +203,22 @@ public class CBRoboArmClaw  {
 
     public void capstoneServoClose(double pDouble) {
         capstoneServo.setPosition(pDouble);
+    }
+
+    public void clawupdownServoUp() {
+        clawupdown.setPosition(0.4);
+    }
+
+    public void clawupdownServoStop() {
+        clawupdown.setPosition(0.5);
+    }
+
+    public void clawupdownServoDown() {
+        clawupdown.setPosition(0.6);
+    }
+
+    public void clawupdownServoMove(double pDouble) {
+        clawupdown.setPosition(pDouble);
     }
 
     public void servoOpen(Servo servo, double position) {

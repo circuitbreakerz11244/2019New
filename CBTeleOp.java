@@ -120,13 +120,22 @@ public class CBTeleOp extends OpMode {
 
         //Claw Up/Down Motor Moving up and Down
         double rightY2 = -gamepad2.right_stick_y;
+        /*
         rightY2 = Range.clip(rightY2, -0.01, 0.01);
         util.robot.roboArmClaw.clawMotor.setPower(rightY2);
         double clawMotorPosition = util.robot.roboArmClaw.clawMotor.getCurrentPosition();
         util.updateStatus(" G2.ArmMotor.Y>>" + leftY2 + " APos " + armMotorPosition + " ClawMotor.Y2>>" + rightY2+ " CPos " + clawMotorPosition);
-
+        */
         //TBD
         //GET Range for clawMotor position
+
+        if(rightY2 > 0) {
+            util.robot.roboArmClaw.clawupdownServoUp();
+        } else if(rightY2 <0) {
+            util.robot.roboArmClaw.clawupdownServoDown();
+        } else {
+            util.robot.roboArmClaw.clawupdownServoStop();
+        }
 
     }
 }
