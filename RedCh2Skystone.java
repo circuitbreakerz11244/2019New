@@ -36,7 +36,7 @@ public class RedCh2Skystone extends CBRedChannelSkyStone {
         }
 
 
-        encoderDrive("MF", mbDistance
+        encoderDrive("MF", mbDistance-2
                 , CBRoboConstants.SKYSTONE_AFTERPICK_MIN_PWR
                 , CBRoboConstants.SKYSTONE_AFTERPICK_MAX_PWR);
 

@@ -35,7 +35,7 @@ public class BlueCh2Skystone extends CBBlueChannelSkyStone {
             mbDistance = 0;
         }
 
-        encoderDrive("MF", mbDistance
+        encoderDrive("MF", mbDistance-6
                 , CBRoboConstants.SKYSTONE_DRIVE_MIN_PWR
                 , CBRoboConstants.SKYSTONE_DRIVE_MAX_PWR);
 

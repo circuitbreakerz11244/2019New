@@ -18,7 +18,7 @@ public class RedCh1Foundation extends CBAutonomousBase {
         encoderDrive("MF", 17, 0.5);
         encoderDrive("MR", 10, 0.5);
         encoderDrive("MB", 17, 0.5);
-        encoderDrive("ML", 18+6, 0.3, inputColor);
+        encoderDrive("ML", 18+11, 0.3, inputColor);
 
     }
 }

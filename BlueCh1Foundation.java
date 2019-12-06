@@ -17,7 +17,7 @@ public class BlueCh1Foundation extends CBAutonomousBase {
         encoderDrive("MF", 17, 0.5);
         encoderDrive("ML", 10, 0.5);
         encoderDrive("MB", 17, 0.5);
-        encoderDrive("MR", 18+6, 0.3, inputColor);
+        encoderDrive("MR", 18+11, 0.3, inputColor);
 
     }
 }
